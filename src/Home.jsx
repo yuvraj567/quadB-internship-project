@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import Spinner from '../components/Spinner';
-import { BsInfoCircle } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -9,7 +8,7 @@ import './App.css'
 function Home() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  
   useEffect(() => {
     setLoading(true);
     axios.get('https://api.tvmaze.com/search/shows?q=all')
@@ -39,46 +38,49 @@ function Home() {
                 <tr>
                   <th className='border border-slate-600 rounded-md'>No</th>
                   <th className='border border-slate-600 rounded-md'>Name</th>
-                  <th className='border border-slate-600 rounded-md max-md:hidden'>
-                  Duration
-                  </th>
-                  <th className='border border-slate-600 rounded-md max-md:hidden'>
-                    Publish Year
-                  </th>
+                  <th className='border border-slate-600 rounded-md max-md:hidden'>Duration </th>
+
+                  <th className='border border-slate-600 rounded-md max-md:hidden'>Publish Year</th>
                   <th className='border border-slate-600 rounded-md'>Summary</th>
                 </tr>
               </thead>
+
               <tbody>
                 {data.map((post, index) => (
                   <tr key={index} className='h-8'>
                     <td className='border border-slate-700 rounded-md text-center'>
                       {index + 1}
                     </td>
+
                     <td className='border border-slate-700 rounded-md text-center'>
                       {post.show.name} 
                     </td>
+
                     <td className='border border-slate-700 rounded-md text-center max-md:hidden'>
                       {post.show.runtime} 
                     </td>
+
                     <td className='border border-slate-700 rounded-md text-center max-md:hidden'>
                       {post.show.premiered}
                     </td>
+
                     <td className='border border-slate-700 rounded-md text-center'>
                       <div className='flex justify-center gap-x-4'>
                         <Link to={`/post/${post.show.id}`}>
-                          <BsInfoCircle className='text-2xl text-green-800' />
+                          <button>Show Summary</button>
                         </Link>
                       </div>
                     </td>
+
                 </tr>
                 ))}
+
               </tbody>
             </table>
           </div>
-        )}
-      </div>
 
-              
+        )}
+      </div>  
     </div>
   )
 }
